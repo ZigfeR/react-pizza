@@ -9,16 +9,16 @@ import './scss/app.scss';
 
 function App() {
   return (
-    <div class="wrapper">
-      <div class="content">
+    <div className="wrapper">
+      <div className="content">
         <Header />
-        <div class="container">
-          <div class="content__top">
+        <div className="container">
+          <div className="content__top">
             <Categories />
             <Short />
           </div>
-          <h2 class="content__title">Все пиццы</h2>
-          <div class="content__items">
+          <h2 className="content__title">Все пиццы</h2>
+          <div className="content__items">
             <PizzaBlock title="Итальянская" price={390} />
             <PizzaBlock title="Кубинская" price={420} />
             <PizzaBlock title="Ирландская" price={470} />
