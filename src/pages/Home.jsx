@@ -5,7 +5,7 @@ import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Short from '../components/Short';
 
-export const Home = () => {
+const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setLoading] = React.useState(true);
 
@@ -33,3 +33,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;
