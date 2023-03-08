@@ -44,6 +44,43 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    @media (max-width: 1290px) {
+      .categories {
+        width: 100%;
+        overflow: scroll;
+
+        ul {
+          width: 785px;
+        }
+      }
+      .sort {
+        padding-left: 20px;
+        b {
+          display: none;
+        }
+      }
+    }
+
+    @media (max-width: 940px) {
+      flex-direction: column-reverse;
+
+      .categories {
+        margin-top: 30px;
+      }
+      .sort {
+        b {
+          display: block;
+        }
+      }
+    }
+    @media (max-width: 425px) {
+      .sort {
+        b {
+          display: none;
+        }
+      }
+    }
   }
 }
 
