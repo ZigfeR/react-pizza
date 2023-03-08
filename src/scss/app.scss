@@ -53,7 +53,7 @@ body {
     @media (max-width: 1290px) {
       .categories {
         width: 100%;
-        overflow: scroll;
+        overflow: auto;
 
         ul {
           width: 785px;
