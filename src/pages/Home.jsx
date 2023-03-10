@@ -14,13 +14,16 @@ const Home = () => {
   React.useEffect(() => {
     setLoading(true);
 
-    const sortBy = sortType.sortProperty.replace('-', '');
-    const orderBy = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
-    const category = categoryId > 0 ? `category=${categoryId}` : '';
+    const paramsFetch = {
+      category: categoryId > 0 ? categoryId : '',
+      sortBy: sortType.sortProperty.replace('-', ''),
+      order: sortType.sortProperty.includes('-') ? 'asc' : 'desc',
+    };
+    const queryString = Object.keys(paramsFetch)
+      .map((key) => key + '=' + paramsFetch[key])
+      .join('&');
 
-    fetch(
-      `https://64074338862956433e6a09d1.mockapi.io/items?${category}&sortBy=${sortBy}&order=${orderBy}`,
-    )
+    fetch(`https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`)
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
@@ -29,7 +32,7 @@ const Home = () => {
     window.scrollTo(0, 0);
   }, [categoryId, sortType]);
 
-  console.log(categoryId, sortType);
+  // console.log(queryString);
 
   return (
     <div className="container">
