@@ -1,13 +1,12 @@
 import React from 'react';
 
-function Short() {
+function Short({ value, onClickSortType }) {
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
   const list = ['популярности', 'цене', 'алфавиту'];
-  const sortName = list[selected];
+  const sortName = list[value];
 
   const onClickListItem = (index) => {
-    setSelected(index);
+    onClickSortType(index);
     setOpen(false);
   };
 
@@ -35,7 +34,7 @@ function Short() {
               <li
                 key={index}
                 onClick={() => onClickListItem(index)}
-                className={selected === index ? 'active' : ''}>
+                className={value === index ? 'active' : ''}>
                 {name}
               </li>
             ))}
