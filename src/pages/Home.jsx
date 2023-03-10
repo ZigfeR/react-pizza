@@ -8,6 +8,8 @@ import Short from '../components/Short';
 const Home = () => {
   const [items, setItems] = React.useState([]);
   const [isLoading, setLoading] = React.useState(true);
+  const [categoryId, setCategoryId] = React.useState(0);
+  const [sortType, setTypeSort] = React.useState(0);
 
   React.useEffect(() => {
     fetch('https://64074338862956433e6a09d1.mockapi.io/items')
@@ -22,7 +24,7 @@ const Home = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories />
+        <Categories value={categoryId} onClickCategory={(index) => setCategoryId(index)} />
         <Short />
       </div>
       <h2 className="content__title">Все пиццы</h2>
