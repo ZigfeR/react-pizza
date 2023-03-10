@@ -12,14 +12,15 @@ const Home = () => {
   const [sortType, setTypeSort] = React.useState(0);
 
   React.useEffect(() => {
-    fetch('https://64074338862956433e6a09d1.mockapi.io/items')
+    setLoading(true);
+    fetch('https://64074338862956433e6a09d1.mockapi.io/items?category=' + categoryId)
       .then((res) => res.json())
       .then((arr) => {
         setItems(arr);
         setLoading(false);
       });
     window.scrollTo(0, 0);
-  }, []);
+  }, [categoryId]);
 
   return (
     <div className="container">
