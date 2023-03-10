@@ -2,8 +2,14 @@ import React from 'react';
 
 function Short({ value, onClickSortType }) {
   const [open, setOpen] = React.useState(false);
-  const list = ['популярности', 'цене', 'алфавиту'];
-  const sortName = list[value];
+  const list = [
+    { name: 'популярности (ASC)', sortProperty: '-rating' },
+    { name: 'популярности (DESC)', sortProperty: 'rating' },
+    { name: 'цене (ASC)', sortProperty: '-price' },
+    { name: 'цене (DESC)', sortProperty: 'price' },
+    { name: 'алфавиту (ASC)', sortProperty: '-title' },
+    { name: 'алфавиту (DESC)', sortProperty: 'title' },
+  ];
 
   const onClickListItem = (index) => {
     onClickSortType(index);
@@ -25,17 +31,17 @@ function Short({ value, onClickSortType }) {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortName}</span>
+        <span onClick={() => setOpen(!open)}>{value.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((name, index) => (
+            {list.map((obj, index) => (
               <li
                 key={index}
-                onClick={() => onClickListItem(index)}
-                className={value === index ? 'active' : ''}>
-                {name}
+                onClick={() => onClickListItem(obj)}
+                className={value.sortProperty === obj.sortProperty ? 'active' : ''}>
+                {obj.name}
               </li>
             ))}
           </ul>
