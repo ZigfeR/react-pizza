@@ -15,11 +15,25 @@
     }
   }
 
-  .icon {
+  .icon,
+  .clearIcon {
     position: absolute;
-    width: 22px;
     opacity: 0.3;
-    top: 12px;
+  }
+  .icon {
+    width: 22px;
     left: 15px;
+    top: 12px;
+  }
+
+  .clearIcon {
+    width: 15px;
+    right: 15px;
+    top: 18px;
+    cursor: pointer;
+
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }
