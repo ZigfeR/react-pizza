@@ -15,6 +15,7 @@ const Home = ({ searchValue }) => {
     setLoading(true);
 
     const paramsFetch = {
+      search: searchValue ? searchValue : '',
       category: categoryId > 0 ? categoryId : '',
       sortBy: sortType.sortProperty.replace('-', ''),
       order: sortType.sortProperty.includes('-') ? 'asc' : 'desc',
@@ -30,16 +31,9 @@ const Home = ({ searchValue }) => {
         setLoading(false);
       });
     window.scrollTo(0, 0);
-  }, [categoryId, sortType]);
+  }, [categoryId, sortType, searchValue]);
 
-  const pizzes = items
-    .filter((obj) => {
-      if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-        return true;
-      }
-      return false;
-    })
-    .map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzes = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
   return (
