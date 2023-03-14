@@ -32,7 +32,7 @@ const Home = () => {
       page: currentPage,
       limit: 4,
       search: searchValue ? searchValue : '',
-      category: categoryId > 0 ? categoryId : '',
+      // category: categoryId > 0 ? categoryId : '',
       sortBy: sortType.replace('-', ''),
       order: sortType.includes('-') ? 'asc' : 'desc',
     };
