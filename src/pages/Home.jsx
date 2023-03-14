@@ -12,13 +12,13 @@ import { setCategoryId } from '../redux/slices/filterSlice';
 const Home = () => {
   const dispatch = useDispatch();
   const categoryId = useSelector((state) => state.filter.categoryId);
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
   const { searchValue } = React.useContext(SearchContext);
 
   const [items, setItems] = React.useState([]);
   const [isLoading, setLoading] = React.useState(true);
   const [currentPage, setCurrentPage] = React.useState(1);
-  const [sortType, setTypeSort] = React.useState({ name: 'популярности', sortProperty: 'rating' });
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -32,8 +32,8 @@ const Home = () => {
       limit: 4,
       search: searchValue ? searchValue : '',
       category: categoryId > 0 ? categoryId : '',
-      sortBy: sortType.sortProperty.replace('-', ''),
-      order: sortType.sortProperty.includes('-') ? 'asc' : 'desc',
+      sortBy: sortType.replace('-', ''),
+      order: sortType.includes('-') ? 'asc' : 'desc',
     };
     const queryString = Object.keys(paramsFetch)
       .map((key) => key + '=' + paramsFetch[key])
@@ -55,7 +55,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Short value={sortType} onClickSortType={(index) => setTypeSort(index)} />
+        <Short />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzes}</div>
