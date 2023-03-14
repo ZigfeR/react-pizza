@@ -7,6 +7,11 @@ const Search = () => {
   const { searchValue, setSearchValue } = React.useContext(SearchContext);
   const inputRef = React.useRef();
 
+  const onClickClear = () => {
+    inputRef.current.focus();
+    setSearchValue('');
+  };
+
   return (
     <div className={styles.root}>
       <svg
@@ -51,7 +56,7 @@ const Search = () => {
       />
       {searchValue && (
         <svg
-          onClick={() => setSearchValue('')}
+          onClick={onClickClear}
           className={styles.clearIcon}
           viewBox="0 0 20 20"
           xmlns="http://www.w3.org/2000/svg">
