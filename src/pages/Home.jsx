@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SearchContext } from '../App';
@@ -39,12 +40,10 @@ const Home = () => {
       .map((key) => key + '=' + paramsFetch[key])
       .join('&');
 
-    fetch(`https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`)
-      .then((res) => res.json())
-      .then((arr) => {
-        setItems(arr);
-        setLoading(false);
-      });
+    axios.get(`https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`).then((res) => {
+      setItems(res.data);
+      setLoading(false);
+    });
     window.scrollTo(0, 0);
   }, [categoryId, sortType, searchValue, currentPage]);
 
