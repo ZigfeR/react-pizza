@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSort } from '../redux/slices/filterSlice';
 
-function Short() {
+function Sort() {
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
 
@@ -56,4 +56,4 @@ function Short() {
   );
 }
 
-export default Short;
+export default Sort;

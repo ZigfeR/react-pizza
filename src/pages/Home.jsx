@@ -7,7 +7,7 @@ import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
 import PizzaBlock from '../components/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
-import Short from '../components/Short';
+import Sort from '../components/Sort';
 import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 
 const Home = () => {
@@ -57,7 +57,7 @@ const Home = () => {
     <div className="container">
       <div className="content__top">
         <Categories value={categoryId} onClickCategory={onClickCategory} />
-        <Short />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{isLoading ? skeletons : pizzes}</div>
