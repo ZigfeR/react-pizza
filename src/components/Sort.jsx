@@ -31,7 +31,7 @@ function Sort() {
 
     document.body.addEventListener('click', handleClickOutside);
 
-    return () => document.body.removeListener('click', handleClickOutside);
+    return () => document.body.removeEventListener('click', handleClickOutside);
   }, []);
 
   return (
