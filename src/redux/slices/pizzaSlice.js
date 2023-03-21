@@ -9,7 +9,7 @@ export const pizzaSlice = createSlice({
   initialState,
   reducers: {
     setItems(state, action) {
-      state.items = action.payload.items;
+      state.items = action.payload;
     },
   },
 });
