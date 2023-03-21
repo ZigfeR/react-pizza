@@ -45,12 +45,11 @@ const Home = () => {
         queryString,
       }),
     );
+    window.scrollTo(0, 0);
   };
 
   React.useEffect(
     () => {
-      window.scrollTo(0, 0);
-
       getPizzas();
     }, // eslint-disable-next-line react-hooks/exhaustive-deps
     [categoryId, sortType, searchValue, currentPage],
