@@ -36,10 +36,13 @@ const Home = () => {
       sortBy: sortType.replace('-', ''),
       order: sortType.includes('-') ? 'asc' : 'desc',
     };
+    const queryString = Object.keys(paramsFetch)
+      .map((key) => key + '=' + paramsFetch[key])
+      .join('&');
 
     dispatch(
       fetchPizzas({
-        paramsFetch,
+        queryString,
       }),
     );
   };

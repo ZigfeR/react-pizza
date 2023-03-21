@@ -2,10 +2,8 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchPizzas = createAsyncThunk('pizza/fetchPizzasStatus', async (params) => {
-  const { paramsFetch } = params;
-  const queryString = Object.keys(paramsFetch)
-    .map((key) => key + '=' + paramsFetch[key])
-    .join('&');
+  const { queryString } = params;
+
   const { data } = await axios.get(
     `https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`,
   );
