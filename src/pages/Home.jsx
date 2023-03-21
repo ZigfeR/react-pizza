@@ -64,7 +64,7 @@ const Home = () => {
       </div>
       <h2 className="content__title">Все пиццы</h2>
       {status === 'error' ? (
-        <div>
+        <div className="content__error-info">
           <h2>
             Произошла ошибка <icon>😕</icon>
           </h2>
