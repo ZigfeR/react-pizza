@@ -28,7 +28,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  React.useEffect(() => {
+  const getPizzas = () => {
     setLoading(true);
 
     const paramsFetch = {
@@ -47,8 +47,16 @@ const Home = () => {
       setItems(res.data);
       setLoading(false);
     });
-    window.scrollTo(0, 0);
-  }, [categoryId, sortType, searchValue, currentPage]);
+  };
+
+  React.useEffect(
+    () => {
+      window.scrollTo(0, 0);
+
+      getPizzas();
+    }, // eslint-disable-next-line react-hooks/exhaustive-deps
+    [categoryId, sortType, searchValue, currentPage],
+  );
 
   const pizzes = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
