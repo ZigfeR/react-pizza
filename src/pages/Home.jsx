@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,17 +9,15 @@ import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
-import { setItems } from './../redux/slices/pizzaSlice';
+import { fetchPizzas } from './../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const items = useSelector((state) => state.pizza.items);
+  const { items, status } = useSelector((state) => state.pizza);
   const sortType = sort.sortProperty;
 
   const { searchValue } = React.useContext(SearchContext);
-
-  const [isLoading, setLoading] = React.useState(true);
 
   const onClickCategory = (id) => {
     dispatch(setCategoryId(id));
@@ -31,32 +28,20 @@ const Home = () => {
   };
 
   const getPizzas = async () => {
-    setLoading(true);
-
     const paramsFetch = {
       page: currentPage,
       limit: 4,
       search: searchValue ? searchValue : '',
-      // category: categoryId > 0 ? categoryId : '',
+      category: categoryId > 0 ? categoryId : '',
       sortBy: sortType.replace('-', ''),
       order: sortType.includes('-') ? 'asc' : 'desc',
     };
-    const queryString = Object.keys(paramsFetch)
-      .map((key) => key + '=' + paramsFetch[key])
-      .join('&');
 
-    try {
-      const { data } = await axios.get(
-        `https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`,
-      );
-      dispatch(setItems(data));
-      setLoading(false);
-      window.scrollTo(0, 0);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
+    dispatch(
+      fetchPizzas({
+        paramsFetch,
+      }),
+    );
   };
 
   React.useEffect(
@@ -78,7 +63,17 @@ const Home = () => {
         <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{isLoading ? skeletons : pizzes}</div>
+      {status === 'error' ? (
+        <div>
+          <h2>
+            Произошла ошибка <icon>😕</icon>
+          </h2>
+          <p>К сожалению не удалось полуучить пиццы</p>
+        </div>
+      ) : (
+        <div className="content__items">{status === 'loading' ? skeletons : pizzes}</div>
+      )}
+
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
     </div>
   );
