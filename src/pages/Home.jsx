@@ -28,7 +28,7 @@ const Home = () => {
     dispatch(setCurrentPage(number));
   };
 
-  const getPizzas = () => {
+  const getPizzas = async () => {
     setLoading(true);
 
     const paramsFetch = {
@@ -43,10 +43,16 @@ const Home = () => {
       .map((key) => key + '=' + paramsFetch[key])
       .join('&');
 
-    axios.get(`https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`).then((res) => {
+    try {
+      const res = await axios.get(
+        `https://64074338862956433e6a09d1.mockapi.io/items?${queryString}`,
+      );
       setItems(res.data);
       setLoading(false);
-    });
+      window.scrollTo(0, 0);
+    } catch (error) {
+      setLoading(false);
+    }
   };
 
   React.useEffect(
