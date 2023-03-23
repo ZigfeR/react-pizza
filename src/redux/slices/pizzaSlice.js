@@ -39,7 +39,7 @@ const pizzaSlice = createSlice({
   },
 });
 
-export const selectPizzaItems = (state) => state.pizza;
+export const selectPizzaData = (state) => state.pizza;
 
 export const { setItems } = pizzaSlice.actions;
 

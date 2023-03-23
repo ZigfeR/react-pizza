@@ -9,12 +9,12 @@ import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import { setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaItems } from './../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzaData } from './../redux/slices/pizzaSlice';
 
 const Home = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage } = useSelector((state) => state.filter);
-  const { items, status } = useSelector(selectPizzaItems);
+  const { items, status } = useSelector(selectPizzaData);
   const sortType = sort.sortProperty;
 
   const { searchValue } = React.useContext(SearchContext);
