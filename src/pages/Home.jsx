@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
@@ -52,7 +53,11 @@ const Home = () => {
     [categoryId, sortType, searchValue, currentPage],
   );
 
-  const pizzes = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj) => (
+    <Link key={obj.id} to={`/pizza/${obj.id}`}>
+      <PizzaBlock {...obj} />
+    </Link>
+  ));
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (
@@ -70,7 +75,7 @@ const Home = () => {
           <p>К сожалению не удалось полуучить пиццы</p>
         </div>
       ) : (
-        <div className="content__items">{status === 'loading' ? skeletons : pizzes}</div>
+        <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )}
 
       <Pagination currentPage={currentPage} onChangePage={onChangePage} />
