@@ -8,20 +8,20 @@ import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import Sort from '../components/Sort';
 
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
-import { fetchPizzas, selectPizzaData } from './../redux/slices/pizzaSlice';
+import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
 
-const Home = () => {
+const Home: React.FC = () => {
   const dispatch = useDispatch();
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
   const sortType = sort.sortProperty;
 
-  const onClickCategory = (id) => {
+  const onClickCategory = (id: number) => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (number) => {
-    dispatch(setCurrentPage(number));
+  const onChangePage = (value: number) => {
+    dispatch(setCurrentPage(value));
   };
 
   const getPizzas = async () => {
@@ -34,10 +34,12 @@ const Home = () => {
       order: sortType.includes('-') ? 'asc' : 'desc',
     };
     const queryString = Object.keys(paramsFetch)
+      // @ts-ignore
       .map((key) => key + '=' + paramsFetch[key])
       .join('&');
 
     dispatch(
+      // @ts-ignore
       fetchPizzas({
         queryString,
       }),
@@ -52,7 +54,7 @@ const Home = () => {
     [categoryId, sortType, searchValue, currentPage],
   );
 
-  const pizzas = items.map((obj) => <PizzaBlock key={obj.id} {...obj} />);
+  const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
 
   return (
@@ -65,7 +67,7 @@ const Home = () => {
       {status === 'error' ? (
         <div className="content__error-info">
           <h2>
-            Произошла ошибка <icon>😕</icon>
+            Произошла ошибка <span>😕</span>
           </h2>
           <p>К сожалению не удалось полуучить пиццы</p>
         </div>
