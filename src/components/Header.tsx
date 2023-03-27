@@ -9,7 +9,7 @@ function Header() {
 
   const { pathname } = useLocation();
 
-  const totalCount = items.reduce((total, item) => total + item.count, 0);
+  const totalCount = items.reduce((total: number, item: any) => total + item.count, 0);
 
   return (
     <div className="header">
