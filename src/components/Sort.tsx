@@ -3,18 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectSort, setSort } from '../redux/slices/filterSlice';
 
 type SortItem = {
-  name: string,
-  sortProperty: string
-}
+  name: string;
+  sortProperty: string;
+};
 
-export const sortList: SortItem[]= [
-   { name: 'популярности (ASC)', sortProperty: '-rating' },
-   { name: 'популярности (DESC)', sortProperty: 'rating' },
-   { name: 'цене (ASC)', sortProperty: '-price' },
-   { name: 'цене (DESC)', sortProperty: 'price' },
-   { name: 'алфавиту (ASC)', sortProperty: '-title' },
-   { name: 'алфавиту (DESC)', sortProperty: 'title' },
- ];
+export const sortList: SortItem[] = [
+  { name: 'популярности (ASC)', sortProperty: '-rating' },
+  { name: 'популярности (DESC)', sortProperty: 'rating' },
+  { name: 'цене (ASC)', sortProperty: '-price' },
+  { name: 'цене (DESC)', sortProperty: 'price' },
+  { name: 'алфавиту (ASC)', sortProperty: '-title' },
+  { name: 'алфавиту (DESC)', sortProperty: 'title' },
+];
 
 function Sort() {
   const dispatch = useDispatch();
@@ -29,8 +29,8 @@ function Sort() {
   };
 
   React.useEffect(() => {
-    const handleClickOutside = (event: any) => {
-      if (!event.composedPath().includes(sortRef.current)) {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (sortRef.current && !event.composedPath().includes(sortRef.current)) {
         setOpen(false);
       }
     };
