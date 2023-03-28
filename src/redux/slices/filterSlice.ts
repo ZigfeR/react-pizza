@@ -39,12 +39,27 @@ const filterSlice = createSlice({
     setCurrentPage(state, action: PayloadAction<number>) {
       state.currentPage = action.payload;
     },
+    setFilters(state, action: PayloadAction<FilterSliceState>) {
+      if (Object.keys(action.payload).length) {
+        state.currentPage = Number(action.payload.currentPage);
+        state.categoryId = Number(action.payload.categoryId);
+        state.sort = action.payload.sort;
+      } else {
+        state.currentPage = 1;
+        state.categoryId = 0;
+        state.sort = {
+          name: 'популярности',
+          sortProperty: 'rating',
+        };
+      }
+    },
   },
 });
 
 export const selectFilter = (state: RootState) => state.filter;
 export const selectSort = (state: RootState) => state.filter.sort;
 
-export const { setCategoryId, setSort, setCurrentPage, setSearchValue } = filterSlice.actions;
+export const { setCategoryId, setSort, setCurrentPage, setSearchValue, setFilters } =
+  filterSlice.actions;
 
 export default filterSlice.reducer;
