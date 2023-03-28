@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import Categories from '../components/Categories';
 import Pagination from '../components/Pagination';
@@ -9,9 +9,10 @@ import Sort from '../components/Sort';
 
 import { selectFilter, setCategoryId, setCurrentPage } from '../redux/slices/filterSlice';
 import { fetchPizzas, selectPizzaData } from '../redux/slices/pizzaSlice';
+import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
   const sortType = sort.sortProperty;
@@ -20,39 +21,37 @@ const Home: React.FC = () => {
     dispatch(setCategoryId(id));
   };
 
-  const onChangePage = (value: number) => {
-    dispatch(setCurrentPage(value));
+  const onChangePage = (page: number) => {
+    dispatch(setCurrentPage(page));
   };
 
-  const getPizzas = async () => {
-    const paramsFetch = {
-      page: currentPage,
-      limit: 4,
-      search: searchValue ? searchValue : '',
-      category: categoryId > 0 ? categoryId : '',
-      sortBy: sortType.replace('-', ''),
-      order: sortType.includes('-') ? 'asc' : 'desc',
+  React.useEffect(() => {
+    const getPizzas = async () => {
+      const paramsFetch = {
+        page: currentPage,
+        limit: 4,
+        search: searchValue ? searchValue : '',
+        category: categoryId > 0 ? categoryId : '',
+        sortBy: sortType.replace('-', ''),
+        order: sortType.includes('-') ? 'asc' : 'desc',
+      };
+
+      function objectKeys<Obj extends Record<string, unknown>>(obj: Obj): (keyof Obj)[] {
+        return Object.keys(obj) as (keyof Obj)[];
+      }
+      const queryString = objectKeys(paramsFetch)
+        .map((key) => key + '=' + paramsFetch[key])
+        .join('&');
+
+      dispatch(
+        fetchPizzas({
+          queryString,
+        }),
+      );
+      window.scrollTo(0, 0);
     };
-    const queryString = Object.keys(paramsFetch)
-      // @ts-ignore
-      .map((key) => key + '=' + paramsFetch[key])
-      .join('&');
-
-    dispatch(
-      // @ts-ignore
-      fetchPizzas({
-        queryString,
-      }),
-    );
-    window.scrollTo(0, 0);
-  };
-
-  React.useEffect(
-    () => {
-      getPizzas();
-    }, // eslint-disable-next-line react-hooks/exhaustive-deps
-    [categoryId, sortType, searchValue, currentPage],
-  );
+    getPizzas();
+  }, [categoryId, sortType, searchValue, currentPage, dispatch]);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
