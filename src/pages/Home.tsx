@@ -17,9 +17,12 @@ const Home: React.FC = () => {
   const { items, status } = useSelector(selectPizzaData);
   const sortType = sort.sortProperty;
 
-  const onClickCategory = (id: number) => {
-    dispatch(setCategoryId(id));
-  };
+  const onClickCategory = React.useCallback(
+    (id: number) => {
+      dispatch(setCategoryId(id));
+    },
+    [dispatch],
+  );
 
   const onChangePage = (page: number) => {
     dispatch(setCurrentPage(page));
