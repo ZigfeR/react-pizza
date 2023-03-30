@@ -1,20 +1,17 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import Categories from '../components/Categories';
-import Pagination from '../components/Pagination';
-import PizzaBlock from '../components/PizzaBlock';
-import { Skeleton } from '../components/PizzaBlock/Skeleton';
-import SortPopup from '../components/Sort';
+import { Categories, SortPopup, PizzaBlock, Skeleton, Pagination } from '../components';
+
 import { selectFilter } from '../redux/filter/selectors';
 import { setCategoryId, setCurrentPage } from '../redux/filter/slice';
 import { fetchPizzas } from '../redux/pizza/asyncActions';
 import { selectPizzaData } from '../redux/pizza/selectors';
-
 import { useAppDispatch } from '../redux/store';
 
 const Home: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const { categoryId, sort, currentPage, searchValue } = useSelector(selectFilter);
   const { items, status } = useSelector(selectPizzaData);
   const sortType = sort.sortProperty;
