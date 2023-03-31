@@ -76,9 +76,15 @@ const Home: React.FC = () => {
         <Categories value={categoryId} onClickCategory={onClickCategory} itemsPizza={itemsPizza} />
         <SortPopup value={sort} />
       </div>
-      {itemsPizza.map((obj: any) => (
-        <h2 className="content__title">{categoryId === obj.id ? `${obj.name} пиццы` : ''}</h2>
-      ))}
+      {categoryId === 0 ? (
+        <h2 className="content__title">Все пиццы</h2>
+      ) : (
+        itemsPizza.map((obj: any) => (
+          <h2 key={obj.id} className="content__title">
+            {categoryId === obj.id ? `${obj.name} пиццы` : ''}
+          </h2>
+        ))
+      )}
       {status === 'error' ? (
         <div className="content__error-info">
           <h2>
