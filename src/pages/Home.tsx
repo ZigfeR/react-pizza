@@ -31,7 +31,7 @@ const Home: React.FC = () => {
     const getPizzas = async () => {
       const paramsFetch = {
         page: currentPage,
-        limit: 4,
+        limit: 8,
         search: searchValue ? searchValue : '',
         category: categoryId > 0 ? categoryId : '',
         sortBy: sortType.replace('-', ''),
@@ -56,7 +56,7 @@ const Home: React.FC = () => {
   }, [categoryId, sortType, searchValue, currentPage, dispatch]);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
-  const skeletons = [...new Array(4)].map((_, index) => <Skeleton key={index} />);
+  const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">
