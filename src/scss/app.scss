@@ -53,20 +53,18 @@ body {
     align-items: center;
     justify-content: space-between;
 
-    @media (max-width: 1290px) {
-      .categories {
-        width: 100%;
-        overflow: auto;
+    .categories {
+      width: 100%;
+      overflow: auto;
 
-        ul {
-          width: 785px;
-        }
+      ul {
+        width: 785px;
       }
-      .sort {
-        padding-left: 20px;
-        b {
-          display: none;
-        }
+    }
+    .sort {
+      padding-left: 20px;
+      b {
+        display: none;
       }
     }
 
