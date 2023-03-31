@@ -5,18 +5,28 @@ type CategoriesProps = {
   onClickCategory: (index: number) => void;
 };
 
-const categories = ['Все', 'Мяcные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые'];
-
 export const Categories: React.FC<CategoriesProps> = React.memo(({ value, onClickCategory }) => {
+  const [items, setItems] = React.useState([]);
+
+  React.useEffect(() => {
+    fetch('https://64074338862956433e6a09d1.mockapi.io/categories')
+      .then((res) => {
+        return res.json();
+      })
+      .then((arr) => {
+        setItems(arr);
+      });
+  }, []);
+
   return (
     <div className="categories">
       <ul>
-        {categories.map((categoryName, index) => (
+        {items.map((obj: any) => (
           <li
-            key={index}
-            onClick={() => onClickCategory(index)}
-            className={value === index ? 'active' : ''}>
-            {categoryName}
+            key={obj.id}
+            onClick={() => onClickCategory(obj.id)}
+            className={value === obj.id ? 'active' : ''}>
+            {obj.name}
           </li>
         ))}
       </ul>
