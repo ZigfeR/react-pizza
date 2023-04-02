@@ -2,6 +2,8 @@ import axios from 'axios';
 import React from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
+import styles from './FullPizza.module.scss';
+
 const FullPizza: React.FC = () => {
   const [pizza, setPizza] = React.useState<{
     imageUrl: string;
@@ -28,10 +30,10 @@ const FullPizza: React.FC = () => {
     return <>Downloaded</>;
   }
   return (
-    <div>
+    <div className={styles.root}>
       <img src={pizza.imageUrl} alt="" />
       <h2>{pizza.title}</h2>
-      <h4>{pizza.price} грн</h4>
+      <h4 className={styles.h4}>{pizza.price} грн</h4>
       <Link to="/">
         <button className="button button--outline button--add">
           <span>Назад</span>

@@ -6,7 +6,9 @@ import Home from './pages/Home';
 
 import './scss/app.scss';
 
-const FullPizza = React.lazy(() => import(/* webpackChunkName: "FullPizza" */ './pages/FullPizza'));
+const FullPizza = React.lazy(
+  () => import(/* webpackChunkName: "FullPizza" */ './pages/FullPizza/FullPizza'),
+);
 const Cart = React.lazy(() => import(/* webpackChunkName: "FullPizza" */ './pages/Cart'));
 const NotFound = React.lazy(() => import(/* webpackChunkName: "NotFound" */ './pages/NotFound'));
 
