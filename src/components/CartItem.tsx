@@ -34,12 +34,20 @@ const CartItemBlock: React.FC<CartItemProps> = ({
   };
   const onClickMinus = () => {
     if (count > 1) {
-      dispatch(minusItem(id));
+      dispatch(
+        minusItem({
+          id,
+        } as CartItem),
+      );
     }
   };
   const onClickRemove = () => {
     if (window.confirm('Are you sure you want to remove')) {
-      dispatch(removeItem(id));
+      dispatch(
+        removeItem({
+          id,
+        } as CartItem),
+      );
     }
   };
 
