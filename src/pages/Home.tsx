@@ -47,9 +47,7 @@ const Home: React.FC = () => {
         setsItemsPizza(arr);
       });
   }, []);
-
   const itemsLimit = 8;
-  const itemsPage = Math.ceil(itemsPizza.length / itemsLimit);
 
   React.useEffect(() => {
     const getPizzas = async () => {
@@ -80,7 +78,13 @@ const Home: React.FC = () => {
   }, [categoryId, sortType, searchValue, currentPage, dispatch]);
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
-  const skeletons = [...new Array(8)].map((_, index) => <Skeleton key={index} />);
+  const itemsPage = Math.ceil(itemsPizza.length / itemsLimit);
+  //напиши код пагинации страницы который следит за состоянием массива
+  const currentPages =
+    pizzas.length % itemsLimit === 0
+      ? Math.ceil(pizzas.length / itemsLimit) + 1
+      : Math.ceil(pizzas.length / itemsLimit);
+  const skeletons = [...new Array(itemsLimit)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <div className="container">
@@ -111,8 +115,11 @@ const Home: React.FC = () => {
       ) : (
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )}
-
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} itemsPage={itemsPage} />
+      {categoryId === 0 ? (
+        <Pagination onChangePage={onChangePage} itemsPage={itemsPage} />
+      ) : (
+        <Pagination onChangePage={onChangePage} itemsPage={currentPages} />
+      )}
     </div>
   );
 };
