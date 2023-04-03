@@ -27,23 +27,35 @@ const Home: React.FC = () => {
     dispatch(setCurrentPage(page));
   };
 
-  const [itemsPizza, setItems] = React.useState([]);
-
+  const [itemsCategory, setItemsCategory] = React.useState([]);
   React.useEffect(() => {
     fetch('https://64074338862956433e6a09d1.mockapi.io/categories')
       .then((res) => {
         return res.json();
       })
       .then((arr) => {
-        setItems(arr);
+        setItemsCategory(arr);
       });
   }, []);
+  const [itemsPizza, setsItemsPizza] = React.useState([]);
+  React.useEffect(() => {
+    fetch('https://64074338862956433e6a09d1.mockapi.io/items')
+      .then((res) => {
+        return res.json();
+      })
+      .then((arr) => {
+        setsItemsPizza(arr);
+      });
+  }, []);
+
+  const itemsLimit = 8;
+  const itemsPage = Math.ceil(itemsPizza.length / itemsLimit);
 
   React.useEffect(() => {
     const getPizzas = async () => {
       const paramsFetch = {
         page: currentPage,
-        limit: 8,
+        limit: itemsLimit,
         search: searchValue ? searchValue : '',
         category: categoryId > 0 ? categoryId : '',
         sortBy: sortType.replace('-', ''),
@@ -73,13 +85,17 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories value={categoryId} onClickCategory={onClickCategory} itemsPizza={itemsPizza} />
+        <Categories
+          value={categoryId}
+          onClickCategory={onClickCategory}
+          itemsCategory={itemsCategory}
+        />
         <SortPopup value={sort} />
       </div>
       {categoryId === 0 ? (
         <h2 className="content__title">Все пиццы</h2>
       ) : (
-        itemsPizza.map((obj: any) => (
+        itemsCategory.map((obj: any) => (
           <h2 key={obj.id} className="content__title">
             {categoryId === obj.id ? `${obj.name} пиццы` : ''}
           </h2>
@@ -96,7 +112,7 @@ const Home: React.FC = () => {
         <div className="content__items">{status === 'loading' ? skeletons : pizzas}</div>
       )}
 
-      <Pagination currentPage={currentPage} onChangePage={onChangePage} />
+      <Pagination currentPage={currentPage} onChangePage={onChangePage} itemsPage={itemsPage} />
     </div>
   );
 };

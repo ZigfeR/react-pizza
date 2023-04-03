@@ -3,16 +3,16 @@ import React from 'react';
 type CategoriesProps = {
   value: number;
   onClickCategory: (index: number) => void;
-  itemsPizza: any;
+  itemsCategory: any;
 };
 
 export const Categories: React.FC<CategoriesProps> = React.memo(
-  ({ value, itemsPizza, onClickCategory }) => {
+  ({ value, itemsCategory, onClickCategory }) => {
     return (
       <div className="categories">
         <ul>
           {value === 0
-            ? itemsPizza.map((obj: any) => (
+            ? itemsCategory.map((obj: any) => (
                 <li
                   key={obj.id}
                   onClick={() => onClickCategory(obj.id)}
@@ -20,7 +20,7 @@ export const Categories: React.FC<CategoriesProps> = React.memo(
                   {obj.name}
                 </li>
               ))
-            : itemsPizza.map((obj: any) => (
+            : itemsCategory.map((obj: any) => (
                 <li
                   key={obj.id}
                   onClick={() => onClickCategory(obj.id)}
