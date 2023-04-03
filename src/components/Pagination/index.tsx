@@ -14,10 +14,10 @@ export const Pagination: React.FC<PaginationProps> = ({ currentPage, onChangePag
     <ReactPaginate
       className={styles.root}
       breakLabel="..."
-      nextLabel=">"
       previousLabel="<"
-      onPageChange={(event) => onChangePage(event.selected + 1)}
       pageCount={itemsPage}
+      nextLabel=">"
+      onPageChange={(event) => onChangePage(event.selected + 1)}
       // pageRangeDisplayed={4}
       // forcePage={currentPage - 1}
     />
