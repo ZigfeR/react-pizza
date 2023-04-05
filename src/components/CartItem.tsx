@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useDispatch } from 'react-redux';
 import { CartItem } from '../redux/cart/types';
 import { addItem, minusItem, removeItem } from '../redux/cart/slice';
+import { Link } from 'react-router-dom';
 
 const CartItemBlock: React.FC<CartItem> = ({ id, title, type, size, price, count, imageUrl }) => {
   const dispatch = useDispatch();
@@ -42,13 +43,17 @@ const CartItemBlock: React.FC<CartItem> = ({ id, title, type, size, price, count
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+        <Link key={id} to={`/pizza/${id}`}>
+          <img className="pizza-block__image" src={imageUrl} alt={title} />
+        </Link>
       </div>
       <div className="cart__item-info">
-        <h3>{title}</h3>
-        <p>
-          {type}, {size} см.
-        </p>
+        <Link key={id} to={`/pizza/${id}`}>
+          <h3>{title}</h3>
+          <p>
+            {type}, {size} см.
+          </p>
+        </Link>
       </div>
       <div className="cart__item-count">
         <div
