@@ -79,7 +79,10 @@ const Home: React.FC = () => {
 
   const pizzas = items.map((obj: any) => <PizzaBlock key={obj.id} {...obj} />);
   const itemsPage = Math.ceil(itemsPizza.length / itemsLimit);
-  const currentPages = Math.ceil(pizzas.length / itemsLimit);
+  const currentPages =
+    pizzas.length % itemsLimit === 0
+      ? Math.ceil(pizzas.length / itemsLimit) + 1
+      : Math.ceil(pizzas.length / itemsLimit);
   const skeletons = [...new Array(itemsLimit)].map((_, index) => <Skeleton key={index} />);
 
   return (
