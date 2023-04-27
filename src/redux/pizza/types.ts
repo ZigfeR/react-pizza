@@ -1,4 +1,5 @@
-export type Pizza = {
+export type HitPizza = {
+  objectID: string;
   id: string;
   title: string;
   price: number;
@@ -15,6 +16,15 @@ export enum Status {
 }
 
 export interface PizzaSliceState {
-  items: Pizza[];
+  items: HitPizza[];
   status: Status;
+}
+
+export interface HitResults {
+  hits: HitPizza[];
+}
+export interface HitSearchResults {
+  hits: HitPizza[];
+  nbPages: number;
+  page: number;
 }

@@ -14,17 +14,17 @@ export const Categories: React.FC<CategoriesProps> = React.memo(
           {value === 0
             ? itemsCategory.map((obj: any) => (
                 <li
-                  key={obj.id}
-                  onClick={() => onClickCategory(obj.id)}
+                  key={obj.objectID}
+                  onClick={() => onClickCategory(obj.categoryId)}
                   className={'Все' === obj.name ? 'active' : ''}>
                   {obj.name}
                 </li>
               ))
             : itemsCategory.map((obj: any) => (
                 <li
-                  key={obj.id}
-                  onClick={() => onClickCategory(obj.id)}
-                  className={value === obj.id ? 'active' : ''}>
+                  key={obj.objectID}
+                  onClick={() => onClickCategory(obj.categoryId)}
+                  className={value === obj.categoryId ? 'active' : ''}>
                   {obj.name}
                 </li>
               ))}

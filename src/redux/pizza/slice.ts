@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchPizzas } from './asyncActions';
-import { Pizza, PizzaSliceState, Status } from './types';
+import { HitPizza, PizzaSliceState, Status } from './types';
 
 const initialState: PizzaSliceState = {
   items: [],
@@ -11,7 +11,7 @@ const pizzaSlice = createSlice({
   name: 'pizza',
   initialState,
   reducers: {
-    setItems(state, action: PayloadAction<Pizza[]>) {
+    setItems(state, action: PayloadAction<HitPizza[]>) {
       state.items = action.payload;
     },
   },
@@ -22,7 +22,7 @@ const pizzaSlice = createSlice({
     });
     builder.addCase(fetchPizzas.fulfilled, (state, action) => {
       state.status = Status.SUCCESS;
-      state.items = action.payload;
+      state.items = action.payload.hits;
     });
     builder.addCase(fetchPizzas.rejected, (state) => {
       state.status = Status.ERROR;
